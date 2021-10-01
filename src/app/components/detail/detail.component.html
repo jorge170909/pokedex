@@ -1,0 +1,84 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- vista escritorio -->
+        <div class="col-lg-12 d-none d-lg-block superiorMargin">
+            <div class="row">
+                <div class="col-6 imgPokemon">
+                    <img src="./../../../assets/img/pokemon.png" class = "logo" alt="">
+                </div>
+                <div class="col-6 textPokedex"><p class = "pokedex">Pokédex</p></div>
+            </div>
+            <div class="row fullSize">
+                <div class="col-4"></div>
+                <div class="col-4 target">
+                    <div class="row">
+                        <div class="col-12 pokemonSprite"><img class = "sprites" src = "{{pokemon.img}}"></div>
+                    </div>
+                    <div class="row">
+                        
+                        
+                        <div class="col-12 textPokemon" >
+                            <ng-container *ngIf="pokemon.color == 'white'; else elseName">
+                                <h2 [ngStyle]="{'color':'black'}">{{pokemon.name}}</h2>
+                            </ng-container>
+                            <ng-template #elseName>
+                                <h2 [ngStyle]="{'color':pokemon.color}">{{pokemon.name}}</h2>
+                            </ng-template>
+                            
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <ng-container *ngIf="pokemon.color == 'white'; else elseType">
+                            <div class="col-6" [ngStyle]="{'color':'black'}"><strong>Types: </strong></div>
+                        </ng-container>
+                        <ng-template #elseType>
+                            <div class="col-6" [ngStyle]="{'color':pokemon.color}"><strong>Types: </strong></div>
+                        </ng-template>
+                        <div class="col-6">
+                            <ul>
+                                <ng-container *ngFor="let type of pokemon.types">                            
+                                    <li>
+                                        {{type}}
+                                    </li>
+                                </ng-container>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <ng-container *ngIf="pokemon.color == 'white'; else elseAbilities">
+                            <div class="col-6" [ngStyle]="{'color':'black'}"><strong>Abilities: </strong></div>
+                        </ng-container>
+                        <ng-template #elseAbilities>
+                            <div class="col-6" [ngStyle]="{'color':pokemon.color}"><strong>Abilities: </strong></div>
+                        </ng-template>
+                        
+                        <div class="col-6">
+                            <ul>
+                                <ng-container *ngFor="let ability of pokemon.abilities">                            
+                                    <li>
+                                        {{ability}}
+                                    </li>
+                                </ng-container>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-4"></div>
+            </div>
+        </div>
+        <!-- vista movil -->
+        <div class="col-12 d-sm-none d-md-none d-lg-none d-xl-none">
+            <p>vista movil</p>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" *ngIf="cargando">
+    <div class="row CargandoFull">
+        <div class="col alineadosCenter">
+            <img class="w10" src="./../../../assets/img/pokeball_load2.gif" alt="cargando">
+        </div>
+    </div>
+</div>

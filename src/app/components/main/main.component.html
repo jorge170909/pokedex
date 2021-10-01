@@ -1,0 +1,166 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- vista escritorio -->
+        <div class="col-lg-12 d-none d-lg-block superiorMargin">
+            <div class="row">
+                <div class="col-4 imgPokemon">
+                    <img src="./../../../assets/img/pokemon.png" class = "logo" alt="">
+                </div>
+                <div class="col-4 textPokedex"><p class = "pokedex">Pokédex</p></div>
+                <div class="col-4 pages">
+                    <div role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group mr-2" role="group" aria-label="First group" *ngIf="firstSection == true">
+                            <button type="button" class="btn btn-outline-primary" (click) = "filtrado(0)"><</button>
+                        </div>&nbsp;
+                        <div class="btn-group mr-2" role="group" aria-label="Second group" *ngIf="secondSection == true">
+                            <ng-container *ngFor="let page of arrayPages">
+                                <button type="button" class="btn btn-outline-primary" (click) = "filtrado(page)">{{page}}</button>
+                            </ng-container>
+                            
+                        </div>&nbsp;
+                        <div class="btn-group" role="group" aria-label="Third group" *ngIf="thirdSection == true">
+                            <button type="button" class="btn btn-outline-primary" (click) = "filtrado(-1)">></button>
+                            <!-- <button type="button" class="btn btn-secondary">14</button>
+                            <button type="button" class="btn btn-secondary">15</button> -->
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <ng-container *ngIf="pokemonView.length > 0; else arrayEmpty">
+                    <ng-container *ngFor="let pokemon of pokemonView; let i = index">
+                        <ng-container *ngIf="i <= 5; else renglonDos">
+                            <div class="col-2">
+                                <div class="card border-warning mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-6 pokemonName"><h5>{{pokemon.name}}</h5></div>
+                                            <div class="col-6 pokemonSprite"><img class = "sprites" src = "{{pokemon.imgUrl}}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                Type(s):
+                                            </div>
+                                            <div class="col-6">
+                                                <ul>
+                                                    <ng-container *ngFor="let type of pokemon.type">                            
+                                                        <li>
+                                                            {{type}}
+                                                        </li>
+                                                    </ng-container>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <ng-container *ngIf="pokemon.has_evolution != false">
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-6"><strong>Evolutions</strong></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">Evolution 1:</div>
+                                                <div class="col-6">{{pokemon.evolution1}}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">URL info:</div>
+                                                <div class="col-6"><a (click) = "detailed(pokemon.evolution1)" href="{{pokemon.evolution1url}}" target="_blank">{{pokemon.evolution1}} info</a></div>
+                                                <!-- <div class="col-6" (click) = "detailed(pokemon.evolution1)" data-bs-toggle="modal" data-bs-target="#exampleModal">{{pokemon.evolution1}}</div> -->
+                                            </div>
+                                            <ng-container *ngIf="pokemon.evolution2 != ''">
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-6">Evolution 2</div>
+                                                    <div class="col-6">{{pokemon.evolution2}}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6">URL info:</div>
+                                                    <div class="col-6"><a (click) = "detailed(pokemon.evolution2)" href="{{pokemon.evolution1url}}" target="_blank">{{pokemon.evolution2}} info</a></div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                    </div>
+                                  </div>
+                            </div>
+                        </ng-container>
+                        <ng-template #renglonDos>
+                            <div class="col-2">
+                                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-6 pokemonName"><h5>{{pokemon.name}}</h5></div>
+                                            <div class="col-6 pokemonSprite"><img class = "sprites" src = "{{pokemon.imgUrl}}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                Type(s):
+                                            </div>
+                                            <div class="col-6">
+                                                <ul>
+                                                    <ng-container *ngFor="let type of pokemon.type">                            
+                                                        <li>
+                                                            {{type}}
+                                                        </li>
+                                                    </ng-container>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <ng-container *ngIf="pokemon.has_evolution != false">
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-6"><strong>Has evolution?</strong></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">Evolution 1:</div>
+                                                <div class="col-6">{{pokemon.evolution1}}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">URL info:</div>
+                                                <div class="col-6"><a (click) = "detailed(pokemon.evolution1)" href="{{pokemon.evolution1url}}" target="_blank">{{pokemon.evolution1}} info</a></div>
+                                            </div>
+                                            <ng-container *ngIf="pokemon.evolution2 != ''">
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-6">Evolution 2</div>
+                                                    <div class="col-6">{{pokemon.evolution2}}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6">URL info:</div>
+                                                    <div class="col-6"><a (click) = "detailed(pokemon.evolution2)" href="{{pokemon.evolution1url}}" target="_blank">{{pokemon.evolution2}} info</a></div>
+                                                </div>
+                                            </ng-container>
+                                        </ng-container>
+                                    </div>
+                                  </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </ng-container>
+                <ng-template #arrayEmpty>
+                    <!-- <div class="row">
+                        <div class="col-6"></div>
+                        <div class="col-2">
+                            <div class="spinner-border text-warning" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div> -->
+                </ng-template>
+        </div>
+        </div>
+        <!-- vista movil -->
+        <div class="col-12 d-sm-none d-md-none d-lg-none d-xl-none">
+            <p>vista movil</p>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" *ngIf="cargando">
+    <div class="row CargandoFull">
+        <div class="col alineadosCenter">
+            <img class="w10" src="./../../../assets/img/pokeball_load2.gif" alt="cargando">
+        </div>
+    </div>
+</div>
